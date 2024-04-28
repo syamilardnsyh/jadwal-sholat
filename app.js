@@ -1,11 +1,25 @@
 function jadwal(latitude, longitude){
-    fetch('http://api.aladhan.com/v1/calendar?latitude='+latitude+'&longitude=-'+longitude+'&method=2&month=9&year=2024')
+    fetch('http://api.aladhan.com/v1/calendar?latitude='+latitude+'&longitude='+longitude+'&method2')
     .then(response => response.json())
     .then(function(response){
         let date = new Date();
         let today = date.getDate() - 1 ;
+        let data = response.data[0].timings;
 
-       // console.log(response.data[today]);
+        let app = document.getElementById('app');
+        let table = document.createElement('table');
+        let tableTbody = document.createElement('tbody');
+
+        for(i in data){
+            let row = tableTbody.insertRow();
+            let name = row.insertCell(0);
+            let time = row.insertCell(1);
+            name.innerHTML = i;
+            time.innerHTML = data[i];
+            tableTbody.appendChild(row);
+        }
+        table.appendChild(tableTbody);
+       app.appendChild(table);
     });
 }
 
